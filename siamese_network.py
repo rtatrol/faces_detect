@@ -11,16 +11,17 @@ import urllib
 #############################
 # The best model is stored in releases in our GitHub repo
 
-MODEL_URL = 'https://github.com/Zener085/fast-attendance/releases/download/model/best_model.pt'
+MODEL_URL = 'https://github.com/rtatrol/faces_detect/releases/download/latest/best_model.pt'
+
 MODEL_PATH = 'recognition_model.pt'
 
 ############################
 
 def load_model():
     if not os.path.exists(MODEL_PATH):
-        urllib.request.urlretrieve(MODEL_URL, MODEL_PATH) 
-    model = SiameseNetwork() 
-    model.load_state_dict(torch.load(MODEL_PATH, map_location='cpu')) 
+        urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
+    model = SiameseNetwork()
+    model.load_state_dict(torch.load(MODEL_PATH, map_location='cpu'))
     return model
 
 class SiameseNetwork(nn.Module):
@@ -32,7 +33,7 @@ class SiameseNetwork(nn.Module):
         self.conv4 = nn.Conv2d(64, 128, kernel_size=4)
         self.fc1 = nn.Linear(128 * 24 * 24, 1024)
         self.fc2 = nn.Linear(1024, 1)
-        
+
     def forward_once(self, x):
         # print(x.shape)
         x = F.max_pool2d(F.relu(self.conv1(x)), kernel_size=2, stride=2)
@@ -47,7 +48,7 @@ class SiameseNetwork(nn.Module):
         # print(x.shape)
         x = F.relu(self.fc1(x))
         return x
-    
+
     def forward(self, anchor, positive):
         output1 = self.forward_once(anchor)
         output2 = self.forward_once(positive)
@@ -83,7 +84,7 @@ def verify(image, dir):
         for file in os.listdir(dir):
             img = cv2.imread(os.path.join(dir, file))
             img = preprocess(img).to(device)
-            
+
             output = best_model(image, img)
             results.append(output.item())
     return np.mean(results)
