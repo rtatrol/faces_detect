@@ -1,0 +1,12 @@
+matplotlib
+numpy
+tqdm
+uuid
+opencv-python-headless
+facenet-pytorch
+torch
+torchvision
+streamlit
+st-pages
+pandas
+ffmpeg
