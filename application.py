@@ -4,7 +4,7 @@ from st_pages import Page, show_pages, add_page_title
 add_page_title("Home page")
 
 sl.write("""
-This is a project made in Innopolis University for increase and accurate a speed of checking attendance!
+This is a project made in NSU University for increase and accurate a speed of checking attendance!
 
 GitHub: https://github.com/rtatrol/faces_detect
 """)
