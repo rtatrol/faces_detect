@@ -89,6 +89,7 @@ def verify(image, dir):
             results.append(output.item())
     return np.mean(results)
 
+
 def recognize(image):
     people = {}
     for dir in os.listdir('verification_data'):
